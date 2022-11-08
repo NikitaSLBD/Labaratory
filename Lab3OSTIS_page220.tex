@@ -1,0 +1,146 @@
+\documentclass[a4paper, twocolumn]{article}
+\topmargin = -2cm
+\oddsidemargin = -1cm
+\textwidth=16.8cm
+\textheight=25.2cm
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\setlist{nolistsep}
+
+\begin{document}
+
+\newcounter{chapter}
+\setcounter{chapter}{3}
+\setcounter{page}{220}
+
+of marking is a convenient and concise representation of
+the specific and basic data about the product.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\linewidth]{Product with alphanumeric marking.jpg}
+\caption{Product with alphanumeric marking}
+\label{fig:pam}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\linewidth]{Product with Data Matrix code.jpg}
+\caption{Product with Data Matrix code}
+\label{fig:pdm}
+\end{figure}
+
+Based on the general formulation of the problem, the
+following subtasks can be distinguished, which must be
+solved by the system:
+
+\begin{enumerate}
+    \newcounter{i}
+    \addtocounter{i}{1}
+    \item[\arabic{i})] \mbox{detection and recognition of the type of marking;}
+    \addtocounter{i}{1}
+    \item[\arabic{i})] marking recognition;
+    \addtocounter{i}{1}
+    \item[\arabic{i})] identifying possible marking problems.
+\end{enumerate}
+
+In general, the following requirements can be imposed
+on the system that will solve the assigned tasks:
+
+\begin{itemize}
+    \item  \textbf{High speed of work.} The production line is moving
+    very quickly, so the detection of defects should be
+    carried out with minimal delays;
+    \item  \textbf{Autonomy.} The system should minimize operator
+    involvement in the quality control process;
+    \item \textbf{Universality.} The system should be configured to
+    recognize the marking of any product;
+    \item \textbf{Adaptability.} The system must work under any
+conditions that occur in production (for example,
+insufficient lighting, personnel errors, etc.).
+\end{itemize}
+
+Let’s list the main problems with marking [2]:
+
+\begin{enumerate}
+    \newcounter{j}
+    \setcounter{j}{0}
+    \addtocounter{j}{1}
+    \item[\arabic{j})]  \textbf{lack of ink:} in case of receipt of products on the
+production line without marking, the system must
+conclude that there is no ink;
+    \addtocounter{j}{1}
+    \item[\arabic{j})]  \textbf{camera shift:} if no data on the recognition results
+are received from the neural network modules,
+but the system knows that movement along the
+production line has begun, then it must conclude
+that the camera has shifted;
+    \addtocounter{j}{1}
+    \item[\arabic{j})] \textbf{bad marking:} marking was found and recognized,
+but did not match the template representation.
+In this case, the system must conclude that the
+marking is incorrect;
+    \addtocounter{j}{1}
+    \item[\arabic{j})] \textbf{unreadable marking:} if the marking is blurry and
+cannot be recognized, it is necessary to stop the
+production line and report the error to the operator.
+\end{enumerate}  
+  
+For problems 1,3 and 4, it is necessary to screen out
+products that have a problem marking. The occurrence of
+these problems implies a complete stop of the production
+line movement and reporting to the operator about the
+problem.
+
+\begin{center}
+    \Roman{chapter}. OVERVIEW OF EXISTING APPROACHES
+\end{center}
+\addtocounter{chapter}{1}
+
+Despite the existing interest in the autonomy of production processes and the indisputable advantages that its
+implementation entails, tasks similar to those described
+are solved in a large number of cases with the participation of a person. The operator simply checks a part of
+the production periodically and randomly. This approach
+has disadvantages:
+
+\begin{itemize}
+    \item only a small part of the production passes inspection, so there is a possibility that the defective
+marking will be missed;
+    \item the speed of a person’s reaction to an emergency
+situation may be insufficient;
+    \item a person may not notice a small difference between
+the checked marking and the template one;
+    \item the manual verification work is monotonous.
+\end{itemize}
+
+Existing projects are based on hardware solutions, for
+example, on the use of special sensors [4].
+\par
+Such solutions implement marking recognition, but
+have a number of important disadvantages:
+
+\begin{itemize}
+    \item Unstable recognition quality, depending on the conditions under which the recognition is performed.
+Since the production line moves quickly, the necessary conditions for high-quality recognition are
+often not met;
+    \item Necessity to purchase specialized software to configure sensors.
+\end{itemize} 
+
+Thus, such solutions create additional difficulties in
+operation, which are manifested in the need, in addition
+to selective manual control of product quality, to control
+the recognition system itself.
+
+\begin{center}
+    \Roman{chapter}. PROPOSED APPROACH
+\end{center}
+
+The proposed approach is to use a pipeline structure of
+separate neural network modules, each of which solves
+its own subproblem of marking recognition.
+The task of this pipeline is to detect the marking,
+determine its type and recognize it.
+Let us stop on the system architecture in more detail.
+
+\end{document}
